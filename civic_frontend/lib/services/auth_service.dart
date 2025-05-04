@@ -93,8 +93,9 @@ class AuthService with ChangeNotifier {
     try {
       _error = null;
       notifyListeners();
-      const String apiUrl = String.fromEnvironment('API_URL');
-      final response = await http.get(Uri.parse(apiUrl));
+      final apiBase = dotenv.env['API_URL'];
+      final apiUrl= Uri.parse('$apiBase/auth/login');
+      final response = await http.get(apiUrl);
 
       if (response.statusCode == 200) {
         debugPrint('Login request successful');
